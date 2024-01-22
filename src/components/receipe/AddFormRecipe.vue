@@ -7,17 +7,17 @@
                 <my-input
                     class="mb-4 w-500"
                     placeholder="Title"
-                    v-model="recipe.title"
+                    v-model="form.title"
                 />
                 <my-input
                     class="w-500"
                     placeholder="Description"
-                    v-model="recipe.description"
+                    v-model="form.description"
                 />
                 </div>
                 <div class="mt-3 d-flex justify-content-between w-500">
                     <my-button @click="addRecipe">Add recipe</my-button>
-                    <my-button @click="removeForm">{{showForm ? 'Remove form' : "Show form"}}</my-button>
+                    <my-button @click="toogle">{{showForm ? 'Remove form' : "Show form"}}</my-button>
                 </div>
             </form>
         </div>
@@ -27,33 +27,29 @@
 <script>
 import MyInput from "@/components/UI/MyInput.vue";
 import MyButton from "@/components/UI/MyButton.vue";
+import {useToggle} from "@/composition/toggle.js";
+import {useForm} from "@/composition/form.js";
 
 export default {
     components: {MyButton, MyInput},
-    data(){
-        return{
-            recipe:{
-                title: '',
-                description: '',
-            },
-            showForm: true
-
+    props: {
+        onAdd: {
+            type: Function,
+            required: true
         }
+
     },
-    methods: {
-        removeForm(){
-            this.showForm = !this.showForm
-        },
-        addRecipe(){
-          this.recipe.id = Date.now()
-            this.$emit('addRecipe', this.recipe)
-            this.recipe={
-              title: '',
-                description: ''
-            }
 
+    setup(props){
+
+        // const {toogle, showForm: show} = useToggle() //другой вариант доставани ясвойств
+
+        return{
+          ...useForm(props),
+            ...useToggle()
         }
-    }
+
+    },
 
 }
 </script>

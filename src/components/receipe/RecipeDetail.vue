@@ -3,7 +3,7 @@
         <div v-if="recipe">
             <h4>{{recipe.title}}</h4>
             <p>{{recipe.description}}</p>
-            <my-button @click="deleteRecipe(recipe.id)">Delete</my-button>
+            <my-button @click="this.$emit('deleteRecipe', recipe.id)">Delete</my-button>
         </div>
     </div>
 </template>
@@ -20,11 +20,6 @@ export default {
         }
 
     },
-    methods:{
-        deleteRecipe(id){
-            this.$emit('deleteRecipe', id)
-        }
-    }
 
 }
 </script>

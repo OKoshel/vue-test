@@ -7,6 +7,7 @@ import router from "@/router.js";
 import directives from "@/directives/index.js";
 import store from "@/store/index.js";
 
+
 const app = createApp(App)
 
 components.forEach((component) => {
