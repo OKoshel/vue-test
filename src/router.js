@@ -1,8 +1,8 @@
-import Home from "@/pages/HomeStore.vue";
 import {createRouter, createWebHistory} from "vue-router";
 import Posts from "@/pages/Posts.vue";
 import Post from "@/pages/Post.vue";
 import HomeStore from "@/pages/HomeStore.vue";
+import PostsCompositionApi from "@/pages/PostsCompositionApi.vue";
 
 const routes = [
     {
@@ -16,7 +16,12 @@ const routes = [
     {
         path: '/posts/:id',
         component: Post
+    },
+    {
+        path: '/composition',
+        component: PostsCompositionApi
     }
+
     ]
 
 const router = createRouter({

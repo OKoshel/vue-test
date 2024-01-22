@@ -8,7 +8,9 @@
                 <li>
                     <router-link to="/posts" class="text-decoration-none text-black">Posts</router-link>
                 </li>
-<!--                <li>Account</li>-->
+                <li>
+                    <router-link to="/composition" class="text-decoration-none text-black">CompositionAPI</router-link>
+                </li>
             </ul>
         </div>
     </div>
