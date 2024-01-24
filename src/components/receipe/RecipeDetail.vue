@@ -16,10 +16,11 @@ export default {
     props: {
         recipe: {
             type: Object,
-            required: true
+            default: null
         }
 
     },
+
 
 }
 </script>

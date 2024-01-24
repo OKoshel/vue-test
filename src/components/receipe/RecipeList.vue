@@ -2,7 +2,7 @@
     <div class="recipe-list">
         <div v-if="lists.length > 0">
         <div v-for="recipe in lists">
-            <div class="item-border" @click="$emit('select', recipe.id)">
+            <div class="item-border" @click="this.$emit('select', recipe.id)">
                 <h2 class="mb-3">{{recipe.title}}</h2>
                 <h2 class="mb-3">{{recipe.description}}</h2>
             </div>
@@ -19,7 +19,8 @@ export default {
             type: Array,
             required: true
         }
-    }
+    },
+
 
 }
 </script>

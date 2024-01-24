@@ -1,8 +1,8 @@
 <template>
     <div>
-        <add-form-recipe :onAdd="addRecipe" />
+        <add-form-recipe @addRecipe="handleAddRecipe" />
         <div class="d-flex justify-content-center mt-4">
-            <recipe-list  :lists="lists" @select="selectRecipe" />
+            <recipe-list :lists="lists" @select="setToCurrent"  />
             <recipe-detail :recipe="current" @deleteRecipe="deleteItem" />
         </div>
     </div>
@@ -12,23 +12,30 @@
 import AddFormRecipe from "@/components/receipe/AddFormRecipe.vue";
 import RecipeList from "@/components/receipe/RecipeList.vue";
 import RecipeDetail from "@/components/receipe/RecipeDetail.vue";
-import {useRecipies} from "@/composition/recipies.js";
+import { mapGetters, mapMutations, mapState } from "vuex";
 
 export default {
-    components: {RecipeDetail, RecipeList, AddFormRecipe},
+    components: { RecipeDetail, RecipeList, AddFormRecipe },
 
-    setup(){
+    computed: {
+        ...mapGetters("recipe", ["getAllRecipes", "getCurrentRecipe"]),
+        ...mapState("recipe", ["current", "lists"]),
+    },
 
-        return{
-          ...useRecipies()
-
+    methods: {
+        ...mapMutations("recipe", ["addRecipe",  "deleteRecipe", "setAsCurrent"]),
+        handleAddRecipe(newRecipe) {
+            this.addRecipe(newRecipe);
+        },
+        deleteItem(recipeId) {
+            this.deleteRecipe(recipeId);
+        },
+        setToCurrent(id){
+            this.setAsCurrent(id)
         }
-    }
-
-
-}
+    },
+};
 </script>
-
 
 <style lang="scss" scoped>
 
