@@ -1,3 +1,4 @@
+import axios from "axios";
 
 export const recipeModule = {
     state : () => ({
@@ -12,7 +13,7 @@ export const recipeModule = {
         },
         getCurrentRecipe(state){
             return state.current
-        }
+        },
 
     },
 
@@ -30,10 +31,26 @@ export const recipeModule = {
         setAsCurrent(state, id){
            state.current =  state.lists.find(elem => elem.id === id)
 
+        },
+        fetchNewPosts(state, posts){
+            state.lists = posts
         }
 
     },
-    actions: {},
+    actions: {
+        async fetchAllPosts(ctx){
+            const response=  await axios.get('https://jsonplaceholder.typicode.com/posts', {
+                params:{
+                    _page: 1,
+                    _limit: 5
+                }
+
+            })
+
+            ctx.commit('fetchNewPosts', response.data)
+
+        }
+    },
 
     namespaced: true
 

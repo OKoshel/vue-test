@@ -12,7 +12,7 @@
 import AddFormRecipe from "@/components/receipe/AddFormRecipe.vue";
 import RecipeList from "@/components/receipe/RecipeList.vue";
 import RecipeDetail from "@/components/receipe/RecipeDetail.vue";
-import { mapGetters, mapMutations, mapState } from "vuex";
+import {mapActions, mapGetters, mapMutations, mapState} from "vuex";
 
 export default {
     components: { RecipeDetail, RecipeList, AddFormRecipe },
@@ -24,6 +24,7 @@ export default {
 
     methods: {
         ...mapMutations("recipe", ["addRecipe",  "deleteRecipe", "setAsCurrent"]),
+        ...mapActions('recipe', ['fetchAllPosts']),
         handleAddRecipe(newRecipe) {
             this.addRecipe(newRecipe);
         },
@@ -34,6 +35,9 @@ export default {
             this.setAsCurrent(id)
         }
     },
+    mounted(){
+        this.fetchAllPosts()
+    }
 };
 </script>
 
