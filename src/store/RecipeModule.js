@@ -19,14 +19,11 @@ export const recipeModule = {
 
     mutations: {
         addRecipe (state, newRecipe) {
-         state.lists.push(newRecipe)
-
+         state.lists.unshift(newRecipe)
         },
         deleteRecipe(state, id) {
             state.lists = state.lists.filter((elem) => elem.id !== id)
             state.current = null
-
-
         },
         setAsCurrent(state, id){
            state.current =  state.lists.find(elem => elem.id === id)
@@ -38,7 +35,7 @@ export const recipeModule = {
 
     },
     actions: {
-        async fetchAllPosts(ctx){
+        async fetchAllPosts({commit}){
             const response=  await axios.get('https://jsonplaceholder.typicode.com/posts', {
                 params:{
                     _page: 1,
@@ -47,7 +44,7 @@ export const recipeModule = {
 
             })
 
-            ctx.commit('fetchNewPosts', response.data)
+            commit('fetchNewPosts', response.data)
 
         }
     },

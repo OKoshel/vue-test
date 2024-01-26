@@ -11,6 +11,9 @@
                 <li>
                     <router-link to="/composition" class="text-decoration-none text-black">CompositionAPI</router-link>
                 </li>
+                <li>
+                    <router-link to="/todos" class="text-decoration-none text-black">Todo List</router-link>
+                </li>
             </ul>
         </div>
     </div>

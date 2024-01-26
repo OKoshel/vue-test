@@ -3,6 +3,7 @@ import Posts from "@/pages/Posts.vue";
 import Post from "@/pages/Post.vue";
 import HomeStore from "@/pages/HomeStore.vue";
 import PostsCompositionApi from "@/pages/PostsCompositionApi.vue";
+import TodoList from "@/pages/Todo.vue";
 
 const routes = [
     {
@@ -20,6 +21,11 @@ const routes = [
     {
         path: '/composition',
         component: PostsCompositionApi
+    },
+    {
+        path: '/todos',
+        component: TodoList
+
     }
 
     ]
