@@ -4,6 +4,7 @@ export const todoModule = {
     state : () => ({
         todos: [],
         loading: false,
+        searchInput: '',
         error: '',
         page: 1,
         limit: 10
@@ -15,9 +16,18 @@ export const todoModule = {
         },
         getLoadingTodos(state){
             return  state.loading
-        }},
+        },
+        getTitleBySearchQuery(state){
+        return state.todos.filter((elem) => elem.title.toLowerCase().includes(state.searchInput))
+
+        }
+    },
+
 
     mutations: {
+        setSearchInput(state, searchInput){
+            state.searchInput = searchInput
+        },
         fetchTodosFromServer(state, todos){
             return state.todos = todos
         },
