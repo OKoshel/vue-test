@@ -6,11 +6,10 @@
                 <div>{{todo.title}}</div>
             </div>
         </div>
-        <div class="d-flex gap-3">
-            <button class="btn btn-outline-success" @click="$emit('deleteTodo', todo.id)">{{todo.completed ? 'Done' : "Active"}}</button>
+        <div class="d-flex gap-3 align-items-center">
+            <p class="mb-0">{{todo.completed ? 'Done' : "Active"}}</p>
             <my-button @click="$emit('deleteTodo', todo.id)">Delete</my-button>
         </div>
-
     </div>
 </template>
 

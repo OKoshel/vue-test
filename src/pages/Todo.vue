@@ -1,7 +1,16 @@
 <template>
-    <div>
-        <h3 class="text-center mb-4">Todo List</h3>
-        <todo-form @updateForm="updateDataForm"/>
+
+        <modal-window :show-form="showForm" :close-window="closeWindow">
+            <template v-slot:header>
+                <h3 class="text-center mb-0">Todo List</h3>
+            </template>
+            <template v-slot:text>
+                <todo-form @updateForm="updateDataForm"/>
+            </template>
+        </modal-window>
+
+        <my-button @click="toogle">Add todo</my-button>
+
         <div class="mt-4">
             <h3 v-if="loading">Loading...</h3>
             <div v-else>
@@ -23,7 +32,7 @@
                 <my-button @click="deleteAllDone">Delete select</my-button>
             </div>
         </div>
-    </div>
+
 </template>
 
 <script>
@@ -32,8 +41,10 @@ import TodoList from "@/components/todo/TodoList.vue"
 import {mapActions, mapGetters, mapMutations, mapState} from "vuex";
 import MyButton from "@/components/UI/MyButton.vue";
 import MyInput from "@/components/UI/MyInput.vue";
+import ModalWindow from "@/components/UI/ModalWindow.vue";
+import {useToggle} from "@/composition/toggle.js";
 export default {
-    components: {MyInput, MyButton, TodoForm, TodoList},
+    components: {ModalWindow, MyInput, MyButton, TodoForm, TodoList},
 
     computed: {
         ...mapGetters("todo", ["getAllTodos", 'getLoadingTodos', 'getTitleBySearchQuery']),
@@ -46,6 +57,8 @@ export default {
 
         updateDataForm(newTodo){
             this.addTodoToMassive(newTodo)
+            this.closeWindow()
+
         },
         deleteTodo(todoId){
             this.deleteTodoFromMassive(todoId)
@@ -59,6 +72,11 @@ export default {
 
         },
 
+    },
+    setup(){
+        return{
+            ...useToggle(),
+        }
     },
 
     mounted() {
