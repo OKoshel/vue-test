@@ -4,7 +4,7 @@
         <div class="modal-header d-flex align-items-center">
             <slot name="header"></slot>
             <div @click="closeWindow" class="cursor-pointer">
-                <svg-icon type="mdi" :path="path"></svg-icon>
+                <svg-icon type="mdi" :path="mdiClose"></svg-icon>
             </div>
         </div>
         <div class="modal-text">
@@ -28,7 +28,7 @@ export default {
     },
     data() {
         return {
-            path: mdiClose,
+            mdiClose: mdiClose,
         }
     },
     props: {

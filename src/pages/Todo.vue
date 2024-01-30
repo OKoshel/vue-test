@@ -11,6 +11,17 @@
 
         <my-button @click="toogle">Add todo</my-button>
 
+    <v-tooltip text="Tooltip">
+        <template v-slot:activator="{ props }">
+            <v-btn v-bind="props">Tooltip</v-btn>
+        </template>
+    </v-tooltip>
+    <v-btn variant="outlined">
+        Button
+    </v-btn>
+
+
+
         <div class="mt-4">
             <h3 v-if="loading">Loading...</h3>
             <div v-else>

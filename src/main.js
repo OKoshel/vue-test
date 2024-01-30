@@ -1,18 +1,24 @@
 import './assets/main.css'
 import { createApp } from 'vue'
 import App from './App.vue'
-import components from "../src/components/UI"
 import "bootstrap/dist/css/bootstrap.min.css";
-import router from "@/router.js";
 import directives from "@/directives/index.js";
+import myComponents from "../src/components/UI"
+import router from "@/router.js";
 import store from "@/store/index.js";
+import * as components from 'vuetify/components'
+import 'vuetify/styles'
+import { createVuetify } from 'vuetify'
 
+const vuetify = createVuetify({
+    components,
+    ssr: true,
+})
 
 const app = createApp(App)
 
-components.forEach((component) => {
+myComponents.forEach((component) => {
     app.component(component.name, component)
-
 })
 
 directives.forEach((directive) => {
@@ -22,4 +28,7 @@ directives.forEach((directive) => {
 app
     .use(router)
     .use(store)
+    .use(vuetify)
     .mount('#app')
+
+
