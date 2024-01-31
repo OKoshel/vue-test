@@ -1,14 +1,30 @@
 <template>
     <div>
-        <button class="btn btn-info"  >
-            <slot></slot>
-        </button>
+        <v-btn  :color="btnColor">
+            <v-icon :icon="iconType"  :color="iconColor"/>
+                <slot></slot>
+        </v-btn>
     </div>
 </template>
 
 <script>
 export default {
     name: "my-button",
+    props:{
+        btnColor: {
+            type: String,
+            default: 'black'
+        },
+        iconColor: {
+            type: String,
+            default: 'white'
+        },
+        iconType: {
+            type: String,
+            default: 'mdi-plus'
+        }
+
+    }
 }
 </script>
 

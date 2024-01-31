@@ -9,10 +9,21 @@ import store from "@/store/index.js";
 import * as components from 'vuetify/components'
 import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
+import {aliases} from "vuetify/iconsets/fa";
+import {mdi} from "vuetify/iconsets/mdi";
+import '@mdi/font/css/materialdesignicons.css'
 
 const vuetify = createVuetify({
     components,
     ssr: true,
+    icons: {
+        defaultSet: 'mdi',
+        aliases,
+        sets: {
+            mdi,
+        },
+    },
+
 })
 
 const app = createApp(App)

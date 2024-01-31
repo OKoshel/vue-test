@@ -1,15 +1,31 @@
 <template>
-    <div class="d-flex flex-column gap-3">
-        <input :value="modelValue" @input="updateInput" type="text" class="input" :placeholder="placeholder">
-    </div>
+        <v-text-field
+            clearable
+            :label="label"
+            :variant="variant"
+            :model-value="modelValue"
+            @input="updateInput"
+
+
+        />
+        <!--        <input :value="modelValue" @input="updateInput" type="text" class="input" :placeholder="placeholder">-->
+
 </template>
 
 <script>
 export default {
     name: "my-input",
     props: {
-        placeholder: [String],
-        modelValue: [String, Number]
+        modelValue: [String, Number],
+        label: {
+            type: String,
+            default: "Search"
+        },
+        variant: {
+            type: String,
+            default: 'outlined'
+        }
+
     },
     methods: {
         updateInput(e){

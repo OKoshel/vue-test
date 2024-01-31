@@ -9,38 +9,34 @@
             </template>
         </modal-window>
 
-        <my-button @click="toogle">Add todo</my-button>
-
-    <v-tooltip text="Tooltip">
-        <template v-slot:activator="{ props }">
-            <v-btn v-bind="props">Tooltip</v-btn>
-        </template>
-    </v-tooltip>
-    <v-btn variant="outlined">
-        Button
+    <v-btn  @click="toogle" color="black">
+        <v-icon icon="mdi-plus"  color="white"/>
+        Add todo
     </v-btn>
 
-
-
-        <div class="mt-4">
+    <div class="mt-5">
             <h3 v-if="loading">Loading...</h3>
             <div v-else>
-                <div class="d-flex justify-content-between mb-4">
-                    <div>
+
+                <div class="d-flex justify-content-between mb-4 mt-4">
+                    <div class="col-6 ">
                         <my-input
-                            type="search"
                             :model-value="searchInput"
                             @update:model-value="setSearchInput"
-                            placeholder="Search by title"
-                            />
+
+                        />
                     </div>
-                    <div class="d-flex align-items-center gap-3">
+
+                    <div class="col-3 d-flex align-items-center gap-3 justify-content-end">
                         <input type="checkbox" @change="selectAllCheckbox">
                         <div class="">Done All</div>
                     </div>
                 </div>
                 <todo-list :todos="getTitleBySearchQuery" @deleteTodo="deleteTodo"/>
-                <my-button @click="deleteAllDone">Delete select</my-button>
+                <my-button
+                    @click="deleteAllDone"
+                    icon-type="mdi-delete"
+                >Delete select</my-button>
             </div>
         </div>
 
@@ -54,6 +50,7 @@ import MyButton from "@/components/UI/MyButton.vue";
 import MyInput from "@/components/UI/MyInput.vue";
 import ModalWindow from "@/components/UI/ModalWindow.vue";
 import {useToggle} from "@/composition/toggle.js";
+
 export default {
     components: {ModalWindow, MyInput, MyButton, TodoForm, TodoList},
 
@@ -63,6 +60,7 @@ export default {
 
     },
     methods: {
+
         ...mapActions('todo', ['fetchTodos']),
         ...mapMutations('todo', ['addTodoToMassive', "deleteTodoFromMassive", 'checkedAllTodos', 'deleteAllDoneTodo', 'setSearchInput']),
 

@@ -7,8 +7,15 @@
             </div>
         </div>
         <div class="d-flex gap-3 align-items-center">
-            <p class="mb-0">{{todo.completed ? 'Done' : "Active"}}</p>
-            <my-button @click="$emit('deleteTodo', todo.id)">Delete</my-button>
+            <v-btn variant="plain">
+                {{todo.completed ? 'Done' : "Active"}}
+            </v-btn>
+
+            <my-button
+                @click="$emit('deleteTodo', todo.id)"
+                icon-type="mdi-delete"
+                btn-color="red"
+            >Delete</my-button>
         </div>
     </div>
 </template>
