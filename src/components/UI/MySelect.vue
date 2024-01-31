@@ -1,43 +1,48 @@
 <template>
-    <select class="select" :value="modelValue" @change="optionChange">
-        <option value="" disabled>Choose item</option>
-        <option
-                v-for="option in options"
-                :value="option.value"
-                :key="option.value"
-        >
-            {{option.name}}
-
-        </option>
-
-    </select>
+    <v-select
+        clearable
+        label="Select"
+        variant="underlined"
+        v-model="selectedValue"
+        :items="options"
+        @change="optionChange"
+    />
 </template>
 
 <script>
 export default {
-    name: 'my-select',
-    props:{
+    name: 'MySelect',
+    props: {
         modelValue: {
-            type: String
+            type: String,
+            required: true
         },
         options: {
             type: Array,
             default: () => []
         }
-
+    },
+    data() {
+        return {
+            selectedValue: this.modelValue
+        };
+    },
+    watch: {
+        modelValue(newValue) {
+            this.selectedValue = newValue;
+        },
+        selectedValue(newValue) {
+            this.$emit('update:modelValue', newValue);
+        }
     },
     methods: {
-        optionChange(e){
-            this.$emit('update:modelValue', e.target.value)
+        optionChange() {
+            this.$emit('update:modelValue', this.selectedValue);
         }
     }
-
-}
+};
 </script>
 
-<style lang="sass" scoped>
-
-.select
-  padding: 10px
-
+<style scoped>
+/* Ваш стиль */
 </style>

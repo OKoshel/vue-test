@@ -10,18 +10,18 @@ import Pagination from "@/components/Pagination.vue";
 import {ref} from "vue";
 
 export default {
-    setup() {
-        const count = ref(0)
-        function increment() {
-            count.value++
-        }
-
-        return {
-            count,
-            increment
-        }
-
-    },
+    // setup() {
+    //     const count = ref(0)
+    //     function increment() {
+    //         count.value++
+    //     }
+    //
+    //     return {
+    //         count,
+    //         increment
+    //     }
+    //
+    // },
 
     components: {
         Pagination,
@@ -40,8 +40,7 @@ export default {
             selectedSort: '',
             searchInput: '',
             selectedOptions:[
-                {value: 'title', name: 'By title'},
-                {value: 'body', name: 'By body'}
+              'title', 'body'
             ],
             page: 1,
             limit: 5,
@@ -50,6 +49,7 @@ export default {
 
     },
     methods: {
+
         createPost(post){
             this.posts.push(post)
             this.visibleModal = false
@@ -140,30 +140,30 @@ export default {
         }
 
     },
-    // watch: {
-    //     selectedSort(newValue){
-    //     this.posts.sort((post1, post2) => {
-    //          // return post1[this.selectedSort]?.localeCompare(post2[this.selectedSort])
-    //          return post1[newValue]?.localeCompare(post2[newValue])
-    //
-    //     })}
-    // }
+    watch: {
+        selectedSort(newValue) {
+            console.log('Selected sort:', newValue);
+        }
+    },
+
 }
-
-
-
 
 </script>
 
 <template>
     <div class="d-flex align-items-center justify-content-between">
-        <button @click="increment">{{count}}</button>
         <h2>The page of posts</h2>
-        <div class="d-flex align-items-center gap-3">
-            <my-button @click="openModal" >Add new post</my-button>
-            <my-select v-model="selectedSort" :options="selectedOptions"></my-select>
+        <div class="d-flex align-items-center gap-3 col-6 justify-content-end">
+            <div class="col-4">
+                <my-select v-model="selectedSort" :options="selectedOptions" ></my-select>
+            </div>
         </div>
     </div>
+    <div class="w-fit">
+        <my-button @click="openModal" >Add new post</my-button>
+    </div>
+
+
 
     <div class="mt-4">
         <my-input v-model="searchInput"  placeholder="Search by title" v-focus />
