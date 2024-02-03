@@ -33,6 +33,7 @@
                     </div>
                 </div>
                 <todo-list :todos="getTitleBySearchQuery" @deleteTodo="deleteTodo"/>
+                <my-pagination :total="total" :page="page" @change="handlePageChange" />
                 <my-button
                     @click="deleteAllDone"
                     icon-type="mdi-delete"
@@ -50,19 +51,20 @@ import MyButton from "@/components/UI/MyButton.vue";
 import MyInput from "@/components/UI/MyInput.vue";
 import ModalWindow from "@/components/UI/ModalWindow.vue";
 import {useToggle} from "@/composition/toggle.js";
+import MyPagination from "@/components/UI/MyPagination.vue";
 
 export default {
-    components: {ModalWindow, MyInput, MyButton, TodoForm, TodoList},
+    components: {MyPagination, ModalWindow, MyInput, MyButton, TodoForm, TodoList},
 
     computed: {
-        ...mapGetters("todo", ["getAllTodos", 'getLoadingTodos', 'getTitleBySearchQuery']),
-        ...mapState("todo", ["todos", "loading", 'searchInput']),
+        ...mapGetters("todo", ["getAllTodos", 'getLoadingTodos', 'getTitleBySearchQuery', 'getTotalPageLength']),
+        ...mapState("todo", ["todos", "loading", 'searchInput', 'page', 'limit', 'total']),
 
     },
     methods: {
 
         ...mapActions('todo', ['fetchTodos']),
-        ...mapMutations('todo', ['addTodoToMassive', "deleteTodoFromMassive", 'checkedAllTodos', 'deleteAllDoneTodo', 'setSearchInput']),
+        ...mapMutations('todo', ['setPage', 'addTodoToMassive', "deleteTodoFromMassive", 'checkedAllTodos', 'deleteAllDoneTodo', 'setSearchInput', 'getTotalPage']),
 
         updateDataForm(newTodo){
             this.addTodoToMassive(newTodo)
@@ -80,6 +82,11 @@ export default {
             this.deleteAllDoneTodo()
 
         },
+
+        handlePageChange(newPage){
+            this.setPage(newPage)
+            this.fetchTodos()
+        }
 
     },
     setup(){

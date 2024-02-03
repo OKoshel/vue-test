@@ -7,7 +7,8 @@ export const todoModule = {
         searchInput: '',
         error: '',
         page: 1,
-        limit: 10
+        limit: 5,
+        total: 1
 
     }),
     getters: {
@@ -19,12 +20,18 @@ export const todoModule = {
         },
         getTitleBySearchQuery(state){
         return state.todos.filter((elem) => elem.title.toLowerCase().includes(state.searchInput))
+        },
 
-        }
     },
 
 
     mutations: {
+        setPage(state, newPage){
+            return state.page = newPage
+        },
+        getTotalPage(state, total){
+            return state.total = total
+        },
         setSearchInput(state, searchInput){
             state.searchInput = searchInput
         },
@@ -63,6 +70,7 @@ export const todoModule = {
     },
     actions: {
         async fetchTodos({state, commit}){
+
             try {
                 commit('loadingFromServer', true)
                 const response=  await axios.get('https://jsonplaceholder.typicode.com/todos', {
@@ -72,8 +80,10 @@ export const todoModule = {
                     }
 
                 })
+                commit('fetchTodosFromServer', response.data);
+                const totalCount = response.headers['x-total-count'];
+                commit('getTotalPage', Math.ceil(totalCount / state.limit));
 
-                commit('fetchTodosFromServer', response.data )
             }
             catch (error){
                 console.log(error)
